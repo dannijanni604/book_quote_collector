@@ -1,0 +1,8 @@
+class: Quote
+table: quotes
+fields:
+  quoteText: String
+  personalNote: String
+  createdAt: DateTime
+  tags: List<String>
+  userId: int 

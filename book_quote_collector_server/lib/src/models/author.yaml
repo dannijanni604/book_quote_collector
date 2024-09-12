@@ -1,0 +1,6 @@
+class: Author
+table: authors
+fields:
+  name: String
+  dateOfBirth: DateTime
+  biography: String

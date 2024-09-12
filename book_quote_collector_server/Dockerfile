@@ -1,25 +1,17 @@
-FROM dart:3.2.5 AS build
+# Use Dart as a base image
+FROM dart:stable
 
+# Set the working directory inside the container
 WORKDIR /app
+
+# Copy all files from the host machine to the container
 COPY . .
 
+# Get dependencies
 RUN dart pub get
-RUN dart compile exe bin/main.dart -o bin/server
 
-FROM alpine:latest
-
-ENV runmode=production
-ENV serverid=default
-ENV logging=normal
-ENV role=monolith
-
-COPY --from=build /runtime/ /
-COPY --from=build /app/bin/server server
-COPY --from=build /app/config/ config/
-COPY --from=build /app/web/ web/
-
+# Expose the server port
 EXPOSE 8080
-EXPOSE 8081
-EXPOSE 8082
 
-ENTRYPOINT ./server --mode=$runmode --server-id=$serverid --logging=$logging --role=$role
+# Command to run your Serverpod server
+CMD ["dart", "bin/server.dart"]

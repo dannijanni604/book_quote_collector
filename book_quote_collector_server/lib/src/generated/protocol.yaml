@@ -1,2 +1,5 @@
+auth:
+  - registerUser:
+  - loginUser:
 example:
   - hello:

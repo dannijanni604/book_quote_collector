@@ -1,0 +1,7 @@
+class: Book
+table: books
+fields:
+  title: String
+  author: String
+  publicationDate: DateTime
+  genre: String

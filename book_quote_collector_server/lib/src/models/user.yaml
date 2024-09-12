@@ -1,0 +1,7 @@
+class: User
+table: users
+fields:
+  username: String
+  email: String
+  passwordHash: String
+  createdAt: DateTime

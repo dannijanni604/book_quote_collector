@@ -24,7 +24,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  serverpod_flutter: 2.0.2
+  serverpod_flutter: 2.1.1
+  provider: ^6.1.2
   book_quote_collector_client:
     path: ../book_quote_collector_client
 
