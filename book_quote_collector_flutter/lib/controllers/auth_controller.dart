@@ -1,13 +1,13 @@
+import 'package:book_quote_collector_flutter/config/app_routes.dart';
 import 'package:flutter/material.dart';
-import '../repository/auth_services.dart';
-import '../views/home/home_view.dart';
-import '../utils/app_snackbars.dart';
+import '../repository/auth_repository.dart';
+import '../utils/custom_widgets/app_snackbars.dart';
 
 class AuthController with ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
-  final AuthService _authService = AuthService();
+  final AuthRepository _authService = AuthRepository();
 
   bool isLoading = false;
 
@@ -20,7 +20,7 @@ class AuthController with ChangeNotifier {
         passwordController.text,
       );
       if (token != null) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeView()));
+        Navigator.pushReplacementNamed(context, AppRoutes.home);
         appSnackBar(context: context, message: "Login successful");
       } else {
         appSnackBar(context: context, message: "Login failed: Token is null");
@@ -43,7 +43,7 @@ class AuthController with ChangeNotifier {
         passwordController.text,
         usernameController.text,
       );
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeView()));
+      Navigator.pushReplacementNamed(context, AppRoutes.home);
       appSnackBar(context: context, message: "User registered successfully");
     } catch (e) {
       appSnackBar(context: context, message: e.toString());

@@ -1,5 +1,8 @@
 auth:
   - registerUser:
   - loginUser:
-example:
-  - hello:
+quote:
+  - addQuote:
+  - editQuote:
+  - deleteQuote:
+  - fetchQuotes:

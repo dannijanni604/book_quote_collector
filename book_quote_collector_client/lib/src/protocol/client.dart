@@ -11,7 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'protocol.dart' as _i3;
+import 'package:book_quote_collector_client/src/protocol/quote.dart' as _i3;
+import 'protocol.dart' as _i4;
 
 /// {@category Endpoint}
 class EndpointAuth extends _i1.EndpointRef {
@@ -50,16 +51,43 @@ class EndpointAuth extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
-class EndpointExample extends _i1.EndpointRef {
-  EndpointExample(_i1.EndpointCaller caller) : super(caller);
+class EndpointQuote extends _i1.EndpointRef {
+  EndpointQuote(_i1.EndpointCaller caller) : super(caller);
 
   @override
-  String get name => 'example';
+  String get name => 'quote';
 
-  _i2.Future<String> hello(String name) => caller.callServerEndpoint<String>(
-        'example',
-        'hello',
-        {'name': name},
+  _i2.Future<int?> addQuote(_i3.Quote quote) => caller.callServerEndpoint<int?>(
+        'quote',
+        'addQuote',
+        {'quote': quote},
+      );
+
+  _i2.Future<bool> editQuote(_i3.Quote quote) =>
+      caller.callServerEndpoint<bool>(
+        'quote',
+        'editQuote',
+        {'quote': quote},
+      );
+
+  _i2.Future<bool> deleteQuote(
+    int quoteId,
+    int userId,
+  ) =>
+      caller.callServerEndpoint<bool>(
+        'quote',
+        'deleteQuote',
+        {
+          'quoteId': quoteId,
+          'userId': userId,
+        },
+      );
+
+  _i2.Future<List<_i3.Quote>> fetchQuotes(int userId) =>
+      caller.callServerEndpoint<List<_i3.Quote>>(
+        'quote',
+        'fetchQuotes',
+        {'userId': userId},
       );
 }
 
@@ -79,7 +107,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i3.Protocol(),
+          _i4.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -90,17 +118,17 @@ class Client extends _i1.ServerpodClientShared {
               disconnectStreamsOnLostInternetConnection,
         ) {
     auth = EndpointAuth(this);
-    example = EndpointExample(this);
+    quote = EndpointQuote(this);
   }
 
   late final EndpointAuth auth;
 
-  late final EndpointExample example;
+  late final EndpointQuote quote;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'auth': auth,
-        'example': example,
+        'quote': quote,
       };
 
   @override

@@ -1,6 +1,6 @@
 import '../main.dart';
 
-class AuthService {
+class AuthRepository {
   Future<void> registerUser(String email, String password, String username) async {
     try {
       await client.auth.registerUser(email, password, username);

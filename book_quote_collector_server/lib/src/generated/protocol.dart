@@ -14,12 +14,11 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'author.dart' as _i3;
 import 'book.dart' as _i4;
-import 'example.dart' as _i5;
-import 'quote.dart' as _i6;
-import 'user.dart' as _i7;
+import 'quote.dart' as _i5;
+import 'user.dart' as _i6;
+import 'package:book_quote_collector_server/src/generated/quote.dart' as _i7;
 export 'author.dart';
 export 'book.dart';
-export 'example.dart';
 export 'quote.dart';
 export 'user.dart';
 
@@ -270,14 +269,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i4.Book) {
       return _i4.Book.fromJson(data) as T;
     }
-    if (t == _i5.Example) {
-      return _i5.Example.fromJson(data) as T;
+    if (t == _i5.Quote) {
+      return _i5.Quote.fromJson(data) as T;
     }
-    if (t == _i6.Quote) {
-      return _i6.Quote.fromJson(data) as T;
-    }
-    if (t == _i7.User) {
-      return _i7.User.fromJson(data) as T;
+    if (t == _i6.User) {
+      return _i6.User.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.Author?>()) {
       return (data != null ? _i3.Author.fromJson(data) : null) as T;
@@ -285,17 +281,18 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i4.Book?>()) {
       return (data != null ? _i4.Book.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.Example?>()) {
-      return (data != null ? _i5.Example.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.Quote?>()) {
+      return (data != null ? _i5.Quote.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Quote?>()) {
-      return (data != null ? _i6.Quote.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i7.User?>()) {
-      return (data != null ? _i7.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.User?>()) {
+      return (data != null ? _i6.User.fromJson(data) : null) as T;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i7.Quote>) {
+      return (data as List).map((e) => deserialize<_i7.Quote>(e)).toList()
           as dynamic;
     }
     try {
@@ -314,13 +311,10 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i4.Book) {
       return 'Book';
     }
-    if (data is _i5.Example) {
-      return 'Example';
-    }
-    if (data is _i6.Quote) {
+    if (data is _i5.Quote) {
       return 'Quote';
     }
-    if (data is _i7.User) {
+    if (data is _i6.User) {
       return 'User';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -338,14 +332,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'Book') {
       return deserialize<_i4.Book>(data['data']);
     }
-    if (data['className'] == 'Example') {
-      return deserialize<_i5.Example>(data['data']);
-    }
     if (data['className'] == 'Quote') {
-      return deserialize<_i6.Quote>(data['data']);
+      return deserialize<_i5.Quote>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i7.User>(data['data']);
+      return deserialize<_i6.User>(data['data']);
     }
     if (data['className'].startsWith('serverpod.')) {
       data['className'] = data['className'].substring(10);
@@ -367,10 +358,10 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i3.Author.t;
       case _i4.Book:
         return _i4.Book.t;
-      case _i6.Quote:
-        return _i6.Quote.t;
-      case _i7.User:
-        return _i7.User.t;
+      case _i5.Quote:
+        return _i5.Quote.t;
+      case _i6.User:
+        return _i6.User.t;
     }
     return null;
   }

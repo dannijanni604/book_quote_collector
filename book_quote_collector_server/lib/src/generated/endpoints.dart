@@ -11,7 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/auth_endpoint.dart' as _i2;
-import '../endpoints/example_endpoint.dart' as _i3;
+import '../endpoints/quote_endpoint.dart' as _i3;
+import 'package:book_quote_collector_server/src/generated/quote.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -23,10 +24,10 @@ class Endpoints extends _i1.EndpointDispatch {
           'auth',
           null,
         ),
-      'example': _i3.ExampleEndpoint()
+      'quote': _i3.QuoteEndpoint()
         ..initialize(
           server,
-          'example',
+          'quote',
           null,
         ),
     };
@@ -90,16 +91,16 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    connectors['example'] = _i1.EndpointConnector(
-      name: 'example',
-      endpoint: endpoints['example']!,
+    connectors['quote'] = _i1.EndpointConnector(
+      name: 'quote',
+      endpoint: endpoints['quote']!,
       methodConnectors: {
-        'hello': _i1.MethodConnector(
-          name: 'hello',
+        'addQuote': _i1.MethodConnector(
+          name: 'addQuote',
           params: {
-            'name': _i1.ParameterDescription(
-              name: 'name',
-              type: _i1.getType<String>(),
+            'quote': _i1.ParameterDescription(
+              name: 'quote',
+              type: _i1.getType<_i4.Quote>(),
               nullable: false,
             )
           },
@@ -107,11 +108,71 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['example'] as _i3.ExampleEndpoint).hello(
+              (endpoints['quote'] as _i3.QuoteEndpoint).addQuote(
             session,
-            params['name'],
+            params['quote'],
           ),
-        )
+        ),
+        'editQuote': _i1.MethodConnector(
+          name: 'editQuote',
+          params: {
+            'quote': _i1.ParameterDescription(
+              name: 'quote',
+              type: _i1.getType<_i4.Quote>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['quote'] as _i3.QuoteEndpoint).editQuote(
+            session,
+            params['quote'],
+          ),
+        ),
+        'deleteQuote': _i1.MethodConnector(
+          name: 'deleteQuote',
+          params: {
+            'quoteId': _i1.ParameterDescription(
+              name: 'quoteId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['quote'] as _i3.QuoteEndpoint).deleteQuote(
+            session,
+            params['quoteId'],
+            params['userId'],
+          ),
+        ),
+        'fetchQuotes': _i1.MethodConnector(
+          name: 'fetchQuotes',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['quote'] as _i3.QuoteEndpoint).fetchQuotes(
+            session,
+            params['userId'],
+          ),
+        ),
       },
     );
   }

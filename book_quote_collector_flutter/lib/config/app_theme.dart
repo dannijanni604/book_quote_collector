@@ -8,7 +8,6 @@ ThemeData lightTheme() {
         isDense: true,
         filled: true,
         fillColor: kPrimaryLightColor,
-
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor: kPrimaryColor)));
 }
